@@ -7,41 +7,44 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    return Container(
+      margin: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black45,
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: TextField(
         decoration: InputDecoration(
-          hintText: 'Search pets...',
+          hintText: 'Find your perfect pet...',
           hintStyle: TextStyle(color: Colors.grey[500]),
           prefixIcon: Icon(
-            Icons.search_rounded,
+            Icons.pets_rounded,
             color: Theme.of(context).primaryColor,
           ),
           filled: true,
-          fillColor: Theme.of(context).cardColor,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          fillColor: Theme.of(context).colorScheme.surface,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(
               color: Theme.of(context).primaryColor,
               width: 2,
             ),
           ),
-          suffixIcon: IconButton(
-            icon: Icon(
-              Icons.filter_list_rounded,
-              color: Theme.of(context).primaryColor,
-            ),
-            onPressed: () {},
-          ),
         ),
-        style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
-        cursorColor: Theme.of(context).primaryColor,
         onChanged: (value) {
           context.read<PetBloc>().add(SearchPets(query: value));
         },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pet_addoption_app/core/theme/theme_config.dart';
 import 'package:pet_addoption_app/src/domain/entities/pet.dart';
 import 'package:pet_addoption_app/src/presentation/bloc/pet_bloc/pet_bloc.dart';
 import 'package:pet_addoption_app/src/presentation/bloc/theme_bloc/bloc/theme_bloc.dart';
@@ -22,11 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => di.sl<PetBloc>()
-            ..add(LoadAvailablePets())
-        
-        ),
+        BlocProvider(create: (_) => di.sl<PetBloc>()..add(LoadAvailablePets())),
         BlocProvider(
           create: (_) => ThemeBloc(),
         ),
@@ -36,15 +33,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Pet Adoption',
             debugShowCheckedModeBanner: false,
-            theme: state.isLight
-                ? ThemeData(
-                    primarySwatch: Colors.blue,
-                    brightness: Brightness.light,
-                  )
-                : ThemeData(
-                    primarySwatch: Colors.blue,
-                    brightness: Brightness.dark,
-                  ),
+            theme:
+                state.isLight ? ThemeConfig.lightTheme : ThemeConfig.darkTheme,
             initialRoute: '/',
             routes: {
               '/': (context) => HomePage(),
